@@ -177,42 +177,43 @@ const studentList = [
         }
 ];
 
-var condition =true;
+var condition = true;
 
 while (condition) {
-    var userInput = readline.question("select one of these statement:\n 1. Take Test\n 2. Generate Result\n 3. View Student Result \n ")
-    if (userInput!=1 && userInput!=2 && userInput!=3){
-        console.log("please Enter In the Above Range Only")
-        var userInput = readline.question("select one of these statement:\n 1. Take Test\n 2. Generate Result\n 3. View Student Result \n ")
-        continue;
-    }
-    if (userInput == 1) {
-        takeTest();
-        console.log("Test Taken")
+    var userInput = readline.question("Select one of these options:\n 1. Take Test\n 2. Generate Result\n 3. View Student Result \n");
+
+    if (userInput != 1 && userInput != 2 && userInput != 3) {
+        console.log("Please enter a number in the above range only.");
         continue;
     }
 
-    if ( userInput==2 && !studentList[0].testScores.length>0){
-        var userInput = readline.question("Please take test then Genrate Result:\n 1. Take Test\n 2. Generate Result\n 3. View Student Result \n ")
-        continue;
+    switch (parseInt(userInput)) {
+        case 1:
+            takeTest();
+            console.log("Test Taken");
+            break;
+        case 2:
+            if (!studentList[0].testScores.length > 0) {
+                console.log("Please take the test before generating the result.");
+                continue;
+            }
+            generateResult();
+            console.log("Result Generated");
+            break;
+        case 3:
+            if (!studentList[0].totalMarks) {
+                console.log("Result is not present. Please take the test and generate the result before viewing.");
+                continue;
+            }
+            viewStudentResult();
+            condition = false; // End the loop
+            break;
+        default:
+            console.log("Invalid input. Please try again.");
+            continue;
     }
-
-    if (userInput == 2 && studentList[0].testScores.length>0) {
-        generateResult();
-        console.log("Result Genrated")
-        continue;
-    }
-    if (userInput==3 && !studentList[0].totalMarks){
-        console.log("Result is Not Present")
-        var userInput = readline.question("Please take test and Genrate Result then view Students Result:\n 1. Take Test\n 2. Generate Result\n 3. View Student Result \n ")
-        continue;
-    }
-    if (userInput == 3 && studentList[0].totalMarks) {
-        viewStudentResult();
-        condition=false;
-    }
-
 }
+
 
 
 //function to take test it randomly creates marks for the students in students in list
