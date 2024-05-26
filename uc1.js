@@ -202,7 +202,7 @@ while (condition) {
             break;
         case 3:
             if (!studentList[0].totalMarks) {
-                console.log("Result is not present. Please take the test and generate the result before viewing.");
+                console.log("Result is not genrated. Please take the test and generate the result before viewing.");
                 continue;
             }
             viewStudentResult();
